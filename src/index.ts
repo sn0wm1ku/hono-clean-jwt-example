@@ -17,7 +17,7 @@ import type { AppConfig } from './types/config'
 
 // Configuration
 const config: AppConfig = {
-  port: 9586,
+  port: 9527,
   jwtSecret: 'your-super-secret-jwt-key',
 }
 

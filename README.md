@@ -87,7 +87,7 @@ npm install
 npm run dev
 ```
 
-3. Open your browser and navigate to `http://localhost:9586`
+3. Open your browser and navigate to `http://localhost:9527`
 
 ## Demo Credentials
 
@@ -187,12 +187,12 @@ export type LoginRequest = z.infer<typeof loginSchema>
 ### Login with Validation
 ```bash
 # Valid login
-curl -X POST http://localhost:9586/auth/login \
+curl -X POST http://localhost:9527/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"password"}'
 
 # Invalid input (shows Zod validation)
-curl -X POST http://localhost:9586/auth/login \
+curl -X POST http://localhost:9527/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username":"","password":"123"}'
 # Response: {"error":"Validation failed","details":[...]}
@@ -201,17 +201,17 @@ curl -X POST http://localhost:9586/auth/login \
 ### Access Protected Routes
 ```bash
 # Get user profile
-curl -X GET http://localhost:9586/user/profile \
+curl -X GET http://localhost:9527/user/profile \
   -H "Authorization: Bearer <your-jwt-token>"
 
 # Access protected endpoint
-curl -X GET http://localhost:9586/user/protected \
+curl -X GET http://localhost:9527/user/protected \
   -H "Authorization: Bearer <your-jwt-token>"
 ```
 
 ### Token Verification
 ```bash
-curl -X POST http://localhost:9586/auth/verify-token \
+curl -X POST http://localhost:9527/auth/verify-token \
   -H "Content-Type: application/json" \
   -d '{"token":"<your-jwt-token>"}'
 ```
@@ -322,3 +322,7 @@ This structure ensures that:
 - [Zod](https://zod.dev/) - TypeScript-first schema validation
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js) - Password hashing
 - [TypeScript](https://www.typescriptlang.org/) - Type safety with strict configuration
+
+---
+
+Made with ❤️ for Hong Kong films
