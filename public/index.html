@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hono JWT Demo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Hono JWT Authentication Demo</h1>
+    
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div>
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            <div>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>Test Protected Route</h2>
+        <button onclick="testProtectedRoute()">Access Protected Route</button>
+        <div id="protectedResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>Test Profile Route</h2>
+        <button onclick="testProfileRoute()">Access Profile</button>
+        <div id="profileResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>Test Token Verification</h2>
+        <button onclick="testTokenVerification()">Verify Token</button>
+        <div id="verifyResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>Demo Credentials</h2>
+        <p><strong>Username:</strong> admin or user</p>
+        <p><strong>Password:</strong> password</p>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
