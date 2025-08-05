@@ -18,7 +18,7 @@ export const createUserRoutes = (
   const app = factory.createApp()
 
   // Apply JWT middleware to all user routes (they're all protected)
-  app.use('*', jwt({ secret: jwtSecret }))
+  app.use('*', jwt({ secret: jwtSecret, cookie: 'jwt' }))
 
   // Protected endpoint handler using factory.createHandlers()
   const getProtectedHandlers = factory.createHandlers(async (c) => {

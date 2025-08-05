@@ -4,6 +4,7 @@ import { loginSchema, tokenVerificationSchema } from '../../types/validation'
 import type { LoginRequest, TokenVerificationRequest } from '../../types/validation'
 import type { loginUseCase } from '../../application/login-use-case'
 import type { verifyTokenUseCase } from '../../application/verify-token-use-case'
+import { createAuthController } from '../controllers/auth-controller'
 
 // Create auth routes with factory pattern and Zod validation (Hono best practice)
 export const createAuthRoutes = (
@@ -13,6 +14,9 @@ export const createAuthRoutes = (
 ) => {
   const factory = createFactory()
   const app = factory.createApp()
+
+  // Create controller instance with dependency injection
+  const authController = createAuthController(login, verifyToken, jwtSecret)
 
   // Login validation middleware
   const loginValidator = validator('json', (value, c) => {
@@ -44,56 +48,25 @@ export const createAuthRoutes = (
     return parsed.data
   })
 
-  // Login handler using factory.createHandlers()
+  // Login handler using factory.createHandlers() with controller
   const loginHandlers = factory.createHandlers(
     loginValidator,
-    async (c) => {
-      try {
-        const requestData = c.req.valid('json') as LoginRequest
-        const result = await login(requestData, jwtSecret)
-        
-        if (result.success) {
-          return c.json(result.data)
-        } else {
-          return c.json({ error: result.error }, 401)
-        }
-      } catch (error) {
-        return c.json({ error: 'Login failed' }, 500)
-      }
-    }
+    authController.login
   )
 
-  // Token verification handler using factory.createHandlers()
+  // Token verification handler using factory.createHandlers() with controller
   const verifyTokenHandlers = factory.createHandlers(
     tokenValidator,
-    async (c) => {
-      try {
-        const requestData = c.req.valid('json') as TokenVerificationRequest
-        const result = await verifyToken(requestData, jwtSecret)
-        
-        if (result.success) {
-          return c.json({
-            valid: true,
-            payload: result.data
-          })
-        } else {
-          return c.json({
-            valid: false,
-            error: result.error
-          }, 401)
-        }
-      } catch (error) {
-        return c.json({
-          valid: false,
-          error: 'Token verification failed'
-        }, 500)
-      }
-    }
+    authController.verifyToken
   )
 
   // Authentication routes with validation
   app.post('/login', ...loginHandlers)
   app.post('/verify-token', ...verifyTokenHandlers)
+  
+  // Logout handler using controller
+  const logoutHandlers = factory.createHandlers(authController.logout)
+  app.post('/logout', ...logoutHandlers)
 
   return app
 }

@@ -1,12 +1,14 @@
 {
   "name": "hono-clean-jwt-example",
   "version": "1.0.0",
+  "type": "module",
   "description": "Clean Architecture JWT authentication demo using Hono framework with factory patterns, Zod validation, and pure functional programming",
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "build": "npx esbuild src/index.ts --bundle --platform=node --target=node22 --outfile=dist/index.js --format=esm --minify --sourcemap",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^24.2.0",
+    "esbuild": "^0.25.8",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
   }

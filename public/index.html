@@ -17,6 +17,7 @@
                 <input type="password" id="password" placeholder="Password" required>
             </div>
             <button type="submit">Login</button>
+            <button type="button" onclick="handleLogout()" style="margin-left: 10px;">Logout</button>
         </form>
         <div id="loginResult"></div>
     </div>
@@ -35,7 +36,7 @@
 
     <div class="container">
         <h2>Test Token Verification</h2>
-        <button onclick="testTokenVerification()">Verify Token</button>
+        <button onclick="testTokenVerification()">Test Authentication Status</button>
         <div id="verifyResult"></div>
     </div>
 
@@ -43,6 +44,7 @@
         <h2>Demo Credentials</h2>
         <p><strong>Username:</strong> admin or user</p>
         <p><strong>Password:</strong> password</p>
+        <p><strong>Security:</strong> Now using HttpOnly cookies (more secure against XSS)</p>
     </div>
 
     <script src="/static/app.js"></script>
